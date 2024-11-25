@@ -51,7 +51,7 @@ bash
 
 
 python app.py
-Access the API The API server will be running locally at http://127.0.0.1:5000. You can access the endpoints using this URL.
+Access the API The API server will be running locally at http://127.0.0.1:5000. You can access the endpoints using this URL "http://127.0.0.1:5000/products"
 Testing the API Endpoints
 Manual Testing with cURL
 You can test the API endpoints manually using cURL. Here are examples of how to interact with the API.
