@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-# Sample data for supercars
+#data for supercars
 products = [
     {"name": "Ferrari LaFerrari", "description": "A hybrid supercar with a V12 engine.", "price": 1000000},
     {"name": "Lamborghini Aventador", "description": "A powerful V12 supercar with stunning design.", "price": 400000},
