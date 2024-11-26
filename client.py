@@ -1,6 +1,6 @@
 import requests
 
-BASE_URL = 'http://127.0.0.1:5000/products'
+BASE_URL = 'http://127.0.0.1:8000/products'
 
 def add_product(name, description, price):
     """Add a new product to the API."""
@@ -14,8 +14,6 @@ def add_product(name, description, price):
         
         if response.status_code == 201:
             print("Successfully added product:", response.json())
-        elif response.status_code == 400:
-            print("Failed to add product: Bad Request -", response.json().get("error"))
         else:
             print("Failed to add product:", response.status_code, response.text)
     except requests.exceptions.RequestException as e:
@@ -42,5 +40,5 @@ if __name__ == '__main__':
     add_product('Koenigsegg Jesko', 'A hypercar with extreme performance.', 2800000)
     add_product('Porsche 911 GT3', 'A high-performance sports car.', 200000)
     
-    # Retrieve and print all products well
+    # Retrieve and print all products
     get_products()

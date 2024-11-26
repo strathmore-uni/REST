@@ -1,7 +1,7 @@
-from flask import Flask, jsonify, request
+from fastapi import FastAPI
+from pydantic import BaseModel
 
-
-app = Flask(__name__)
+app = FastAPI()
 
 # Sample data for supercars
 products = [
@@ -13,26 +13,22 @@ products = [
     {"name": "Aston Martin Valkyrie", "description": "A hypercar with a naturally aspirated V12 engine.", "price": 3000000}
 ]
 
-@app.route('/products', methods=['GET'])
+class Product(BaseModel):
+    name: str
+    description: str
+    price: float
+
+@app.get("/products")
 def get_products():
     """Retrieve a list of all products as JSON."""
-    return jsonify(products)
+    return products
 
-@app.route('/products', methods=['POST'])
-def add_product():
+@app.post("/products", status_code=201)
+def add_product(product: Product):
     """Accepts a JSON object to create a new product."""
-    product_data = request.json
-    
-    # Validate all the incoming data 
-    if not product_data or not all(key in product_data for key in ('name', 'description', 'price')):
-        return jsonify({"error": "Missing data or invalid input"}), 400
-    
-    # Ensure price is a valid number
-    if not isinstance(product_data['price'], (int, float)) or product_data['price'] < 0:
-        return jsonify({"error": "Price must be a positive number"}), 400
+    products.append(product.dict())
+    return product.dict()
 
-    products.append(product_data)
-    return jsonify(product_data), 201
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
